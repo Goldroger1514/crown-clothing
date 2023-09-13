@@ -1,8 +1,11 @@
-import logo from './logo.svg';
-import Search from './components/Search/search.component';
+import Authentication from "./routes/authentication/authentication.component";
+import './App.css'
+import { Routes, Route } from 'react-router-dom'
 let App = () => {
   return (
-    <h1>Hello World</h1>
+    <Routes>
+      <Route path="/" element={<Authentication />} />
+    </Routes>
   )
 }
 export default App;

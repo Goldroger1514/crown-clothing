@@ -1,0 +1,40 @@
+form {
+  h2 {
+    margin: 0 auto 5px
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .input-label {
+    position: relative;
+    margin-bottom: 45px;
+    margin-top: 45px;
+
+    input {
+      border: none;
+      border-bottom: 1px solid black;
+      display: block;
+      width: 100%;
+      margin: auto;
+      outline: none;
+      padding: 10px 2px;
+      color: grey;
+      font-size: 20px;
+
+      &:focus+label {
+        top: -15px;
+        font-size: 13px;
+        color: black;
+      }
+    }
+
+    label {
+      position: absolute;
+      transition: .3s;
+      top: 20px;
+      color: grey;
+    }
+  }
+}
