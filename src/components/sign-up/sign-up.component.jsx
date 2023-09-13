@@ -20,8 +20,7 @@ let SignUp = () => {
         <FormInput label='Password' name='confirmPassword' type='password' required />
       </InputLabel>
       <div className='buttons-container'>
-        <button>Sign In</button>
-        <button>Google Sign In</button>
+        <button>Sign Up</button>
       </div>
     </form>
   )
