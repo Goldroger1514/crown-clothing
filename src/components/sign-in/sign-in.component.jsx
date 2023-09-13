@@ -53,7 +53,7 @@ let SignIn = () => {
       </InputLabel>
       <div className='buttons-container'>
         <Button onClick={signIn} type='base' >Sign In</Button>
-        <Button onClick={signInGoogle} type='google' >Google Sign In</Button>
+        {/* <Button onClick={signInGoogle} type='google' >Google Sign In</Button> */}
       </div>
     </form>
   )
