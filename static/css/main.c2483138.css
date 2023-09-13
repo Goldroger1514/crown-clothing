@@ -1,0 +1,2 @@
+form h2{margin:0 auto 5px}form p{margin:0}form .input-label{margin-bottom:45px;margin-top:45px;position:relative}form .input-label input{border:none;border-bottom:1px solid #000;color:gray;display:block;font-size:20px;margin:auto;outline:none;padding:10px 2px;width:100%}form .input-label input:focus+label{color:#000;font-size:13px;top:-15px}form .input-label label{color:gray;position:absolute;top:20px;transition:.3s}*{box-sizing:border-box}body{font-family:sans-serif}
+/*# sourceMappingURL=main.c2483138.css.map*/
