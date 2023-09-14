@@ -11,13 +11,12 @@ let App = () => {
   return (
     <Routes>
       <Route path="" element={<Authentication />} />
-      <Route path='home' element={
+      {/* <Route path='home' element={
         <React.Suspense fallback='Loading...' >
           <RequireAuth>
             <LazyNavigation />
           </RequireAuth>
-
-        </React.Suspense>} ></Route>
+        </React.Suspense>} ></Route> */}
     </Routes>
   )
 }
