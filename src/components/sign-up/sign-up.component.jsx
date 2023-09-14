@@ -3,6 +3,9 @@ import FormInput from '../form-input/form-input.styles'
 import { useState } from 'react'
 import Button from '../button/button.component'
 import { createUser, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { UserContext } from '../../context/user-context.component'
 let defaultFields = {
   displayName: '',
   email: '',
@@ -10,6 +13,8 @@ let defaultFields = {
   confirmPassword: ''
 }
 let SignUp = () => {
+  let { currentUser, setCurrentUser } = useContext(UserContext)
+  let navigate = useNavigate()
   let [fields, setFields] = useState(defaultFields)
   let { displayName, email, password, confirmPassword } = fields
   let onInputChange = (e) => {
@@ -22,6 +27,7 @@ let SignUp = () => {
       if (userAuth.uid) {
         let userDocRef = await createUserDocumentFromAuth(userAuth, displayName)
         setFields(defaultFields)
+        setCurrentUser(userAuth)
       }
     } catch (error) {
       console.log(error)

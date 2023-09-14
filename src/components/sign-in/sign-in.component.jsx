@@ -4,12 +4,17 @@ import { Title, InputLabel } from './sign-in.styles'
 import FormInput from '../form-input/form-input.styles'
 import { useState } from 'react'
 import Button from '../button/button.component'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context/user-context.component'
+import { useContext } from 'react'
 import { signInWithGooglePopup, signInUser, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 let defaultFields = {
   email: '',
   password: ''
 }
 let SignIn = () => {
+  let { currentUser, setCurrentUser } = useContext(UserContext)
+  let navigate = useNavigate()
   let X = Logo
   let [fields, setFields] = useState(defaultFields)
   let { password, email } = fields
@@ -23,6 +28,7 @@ let SignIn = () => {
       if (userAuth.uid) {
         let userDocRef = await createUserDocumentFromAuth(userAuth)
         setFields(defaultFields)
+
       }
     } catch (error) {
 
@@ -31,9 +37,10 @@ let SignIn = () => {
   let signIn = async () => {
     try {
       let response = await signInUser(email, password)
+      setCurrentUser(response.user)
       setFields(defaultFields)
+      navigate('home')
     } catch (error) {
-
       console.log(error)
     }
   }
