@@ -39,6 +39,7 @@ let SignIn = () => {
       let response = await signInUser(email, password)
       setCurrentUser(response.user)
       setFields(defaultFields)
+      navigate('/home')
     } catch (error) {
       console.log(error)
     }

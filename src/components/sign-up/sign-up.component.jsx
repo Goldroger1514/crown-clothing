@@ -28,6 +28,7 @@ let SignUp = () => {
         let userDocRef = await createUserDocumentFromAuth(userAuth, displayName)
         setFields(defaultFields)
         setCurrentUser(userAuth)
+        navigate('/home')
       }
     } catch (error) {
       console.log(error)
