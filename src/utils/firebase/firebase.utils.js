@@ -7,13 +7,17 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
 } from 'firebase/auth'
 import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -71,4 +75,25 @@ export let signInUser = async (email, password) => {
   if (!email || !password)
     return
   return await signInWithEmailAndPassword(auth, email, password)
+}
+export let signOutUser = async () => await signOut(auth)
+export let addCollectionDocuments = async (collectionKey, objects) => {
+  let collectionRef = collection(db, collectionKey)
+  let batch = writeBatch(db)
+  objects.forEach(object => {
+    let docRef = doc(collectionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
+  })
+  await batch.commit()
+}
+export let getCategoriesAndDocuments = async () => {
+  let collectionRef = collection(db, 'products')
+  let q = query(collectionRef)
+  let querySnapShot = getDocs(q)
+  let categoryMap = (await querySnapShot).docs.reduce((acc, docSnapShot) => {
+    let { title, items } = docSnapShot.data()
+    acc[title.toLowerCase()] = items
+    return acc
+  }, {})
+  return categoryMap
 }

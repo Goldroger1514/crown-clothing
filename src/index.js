@@ -4,11 +4,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/user-context.component';
+import { CategoriesProvider } from './context/categories.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename='/crown-clothing' >
     <UserProvider>
-      <App />
+      <CategoriesProvider>
+        <App />
+      </CategoriesProvider>
     </UserProvider>
   </BrowserRouter>
 );
