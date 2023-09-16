@@ -25,7 +25,7 @@ let SignUp = () => {
       let response = await createUser(email, password)
       let userAuth = response.user
       if (userAuth.uid) {
-        let userDocRef = await createUserDocumentFromAuth(userAuth, displayName)
+        let userDocRef = await createUserDocumentFromAuth(userAuth, { displayName })
         setFields(defaultFields)
         setCurrentUser(userAuth)
         navigate('/home')
