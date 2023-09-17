@@ -9,11 +9,7 @@ let CategoryC = () => {
   let data = categoriesMap[category]
   return (
     <>
-      <h1 style={
-        {
-          'text-align': 'center'
-        }
-      } >{category.toUpperCase()}</h1>
+      <h1 >{category.toUpperCase()}</h1>
       < CategoryContainer >
         {
           data.map(product => (

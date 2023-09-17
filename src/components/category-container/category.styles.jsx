@@ -19,4 +19,5 @@ background-color:white;
 opacity:.7;
 text-align:center;
 transition:.3s
+cursor:pointer;
 `

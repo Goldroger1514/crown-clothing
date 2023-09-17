@@ -5,9 +5,7 @@ let CategoryPreview = ({ title, category }) => {
   return (
     <>
       <Link to={title} >
-        <h1 style={{
-          'text-align': 'center'
-        }} >{title.toUpperCase()}</h1>
+        <h1>{title.toUpperCase()}</h1>
       </Link>
       <CategoryContainer>
         {

@@ -7,6 +7,7 @@ import AuthWrapper from "./routes/auth-wrapper/auth-wrapper.component";
 import Home from "./routes/home/home.component";
 import Shop from "./routes/shop/shop.component";
 import { CategoriesProvider } from "./context/categories.context";
+import Checkout from "./routes/checkout/checkout.component";
 import React from "react";
 let LazyNavigation = React.lazy(() => {
   return import("./routes/navigation/navigation.component");
@@ -26,6 +27,7 @@ let App = () => {
           </React.Suspense>} >
           <Route index element={<Home />} />
           <Route path='/home/shop/*' element={<Shop />} />
+          <Route path='/home/checkout' element={<Checkout />} />
         </Route>
       </Routes>
     </>

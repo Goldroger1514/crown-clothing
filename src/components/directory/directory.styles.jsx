@@ -18,7 +18,6 @@ export let Category = styled.div`
     else
       return mixinTwo
   }};
-  cursor:pointer;
   &:hover ${BackgroundImage}{
     transform:scale(1.1)
   }

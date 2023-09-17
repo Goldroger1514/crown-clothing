@@ -6,7 +6,6 @@ let AuthWrapper = ({ children }) => {
       <Navigate to='/Authentication' />
       <Outlet />
     </>
-
   )
 }
 export default AuthWrapper
