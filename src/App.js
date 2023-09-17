@@ -19,6 +19,7 @@ let App = () => {
         <Route path="" element={<AuthWrapper />} >
           <Route path='/Authentication' element={<Authentication />} />
         </Route>
+        <Route path="*" element={<AuthWrapper />} />
         <Route path='/home' element={
           <React.Suspense fallback='Loading...' >
             <RequireAuth>
