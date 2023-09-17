@@ -41,7 +41,7 @@ let SignIn = () => {
       setFields(defaultFields)
       navigate('/home')
     } catch (error) {
-      console.log(error)
+      alert(error.code)
     }
   }
   return (

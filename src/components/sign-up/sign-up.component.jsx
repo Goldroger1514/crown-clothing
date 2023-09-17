@@ -21,6 +21,10 @@ let SignUp = () => {
     setFields({ ...fields, [e.target.name]: e.target.value })
   }
   let handleSubmit = async () => {
+    if (password != confirmPassword) {
+      alert('Passwords should match!')
+      return
+    }
     try {
       let response = await createUser(email, password)
       let userAuth = response.user
@@ -31,7 +35,8 @@ let SignUp = () => {
         navigate('/home')
       }
     } catch (error) {
-      console.log(error)
+      alert(error.code)
+      setFields(defaultFields)
     }
   }
   return (
