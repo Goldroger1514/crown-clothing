@@ -18,3 +18,4 @@ export let CategoriesProvider = ({ children }) => {
   let value = { categoriesMap }
   return <CategoriesContext.Provider value={value} >{children}</CategoriesContext.Provider>
 }
+//reducers

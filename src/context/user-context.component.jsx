@@ -5,6 +5,7 @@ export let UserContext = createContext({
 })
 export let UserProvider = ({ children }) => {
   let [currentUser, setCurrentUser] = useState(null)
+  console.log(currentUser)
   let value = { currentUser, setCurrentUser }
   return <UserContext.Provider value={value} >{children}</UserContext.Provider>
 }
