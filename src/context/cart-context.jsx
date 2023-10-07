@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
+import { createAction } from "../utils/reducer/reducer.utils";
 let addItemToCart = (cartItems, productToAdd) => {
   let result = cartItems.find(element => {
     return element.id == productToAdd.id
@@ -27,6 +28,60 @@ let incDec = (cartItems, productToModify, op) => {
     return cartItems.map(item => item.id == productToModify.id ? { ...item, quantity: item.quantity - 1 } : item)
   }
 }
+let INITIAL_STATE = {
+  cartItems: [],
+  itemsCount: 0,
+  total: 0,
+  cartOpen: false
+}
+let USER_ACTIONS = {
+  ADD_TO_CART: 'ADD_TO_CART',
+  REMOVE_FROM_CART: 'REMOVE_FROM_CART',
+  MODIFY_CART: 'MODIFY_CART',
+  SET_CART_OPEN: 'SET_CART_OPEN'
+}
+let cartReducer = (currentState, action) => {
+  let { type, payload } = action
+  switch (type) {
+    // case USER_ACTIONS.ADD_TO_CART:
+    //   return {
+    //     ...currentState,
+    //     cartItems: addItemToCart(currentState.cartItems, payload),
+    //     cartTotal:,
+    //     cartCount:
+    //     /**
+    //      * Our reducer should not handle any complex calculations
+    //      * It only should update the state nothing less nothing more
+    //      */
+    //   }
+    case USER_ACTIONS.ADD_TO_CART:
+      return {
+        ...currentState,
+        ...payload
+      }
+    case USER_ACTIONS.REMOVE_FROM_CART:
+      return {
+        ...currentState,
+        ...payload
+      }
+    case USER_ACTIONS.MODIFY_CART:
+      return {
+        ...currentState,
+        ...payload
+      }
+    case USER_ACTIONS.SET_CART_OPEN:
+      return {
+        ...currentState,
+        cartOpen: payload
+      }
+    default:
+      throw new Error(`Unhandled type of ${type} in cartReducer`)
+  }
+}
+// let addToCartAction = (itemToAdd) => {
+//   dispatch({ type: 'ADD_TO_CART', payload: itemToAdd })
+// }
+
 export let CartContext = createContext({
   cartItems: [],
   setCartItems: () => null,
@@ -40,31 +95,46 @@ export let CartContext = createContext({
   setTotal: () => null
 })
 export let CartProvider = ({ children }) => {
-  let [cartItems, setCartItems] = useState([])
-  let [itemsCount, setItemsCount] = useState(0)
-  let [cartOpen, setCartOpen] = useState(false)
-  let [total, setTotal] = useState(0)
+  let [state, dispatch] = useReducer(cartReducer, INITIAL_STATE)
+  let { cartItems, itemsCount, cartOpen, total } = state
   let addItem = (productToAdd) => {
-    setCartItems(addItemToCart(cartItems, productToAdd))
+    // setCartItems(addItemToCart(cartItems, productToAdd))
+    cartItems = addItemToCart(cartItems, productToAdd)
+    updateCartItems(USER_ACTIONS.ADD_TO_CART, cartItems)
   }
-  useEffect(() => {
-    let count = cartItems.reduce((acc, elem) => {
+  let remove = (productToRemove) => {
+    // setCartItems(removeItem(cartItems, productToRemove))
+    cartItems = removeItem(cartItems, productToRemove)
+    updateCartItems(USER_ACTIONS.REMOVE_FROM_CART, cartItems)
+  }
+  let incDecQuantity = (productToModify, op) => {
+    // setCartItems(incDec(cartItems, productToModify, op))
+    cartItems = incDec(cartItems, productToModify, op)
+    updateCartItems(USER_ACTIONS.MODIFY_CART, cartItems)
+  }
+  let setCartOpen = (newStatus) => {
+    dispatch({ type: USER_ACTIONS.SET_CART_OPEN, payload: newStatus })
+  }
+  let updateCartItems = (type, cartItems) => {
+    itemsCount = cartItems.reduce((acc, elem) => {
       return acc + elem.quantity
     }, 0)
-    setItemsCount(count)
-  }, [cartItems])
-  useEffect(() => {
+    // setItemsCount(count)
     let sum = 0
     for (let item of cartItems)
       sum += item.price * item.quantity
-    setTotal(sum)
-  })
-  let remove = (productToRemove) => {
-    setCartItems(removeItem(cartItems, productToRemove))
+    total = sum
+    let payload = {
+      cartItems,
+      itemsCount,
+      total
+    }
+    // dispatch({ type: type, payload: payload })
+    dispatch(createAction(type, payload))
   }
-  let incDecQuantity = (productToModify, op) => {
-    setCartItems(incDec(cartItems, productToModify, op))
-  }
-  let value = { cartItems, incDecQuantity, remove, setCartItems, total, addItem, cartOpen, setCartOpen, itemsCount }
+  let value = { cartItems, incDecQuantity, remove, total, addItem, cartOpen, setCartOpen, itemsCount }
   return <CartContext.Provider value={value} >{children}</CartContext.Provider>
 }
+/**
+ * The good time to use reducers is when changing one values causes the modification of several other values in the state object
+ */
