@@ -6,29 +6,21 @@ import RequireAuth from "./components/require-auth/require-auth.component";
 import AuthWrapper from "./routes/auth-wrapper/auth-wrapper.component";
 import Home from "./routes/home/home.component";
 import Shop from "./routes/shop/shop.component";
-import { CategoriesProvider } from "./context/categories.context";
 import Checkout from "./routes/checkout/checkout.component";
-import React from "react";
-let LazyNavigation = React.lazy(() => {
-  return import("./routes/navigation/navigation.component");
-})
+import React, { useEffect } from "react";
+import Navigation from "./routes/navigation/navigation.component";
+
 let App = () => {
   return (
     <>
       <Routes>
-        <Route path="" element={<AuthWrapper />} >
-          <Route path='/Authentication' element={<Authentication />} />
-        </Route>
-        <Route path="*" element={<AuthWrapper />} />
-        <Route path='/home' element={
-          <React.Suspense fallback='Loading...' >
-            <RequireAuth>
-              <LazyNavigation />
-            </RequireAuth>
-          </React.Suspense>} >
+        <Route path='/' element={
+          <Navigation />
+        } >
           <Route index element={<Home />} />
-          <Route path='/home/shop/*' element={<Shop />} />
-          <Route path='/home/checkout' element={<Checkout />} />
+          <Route path='/shop/*' element={<Shop />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='Authentication' element={<Authentication />} />
         </Route>
       </Routes>
     </>

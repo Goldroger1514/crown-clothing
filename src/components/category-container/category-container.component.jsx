@@ -3,7 +3,7 @@ import { BackgroundImage, Info } from './category.styles'
 import { Link } from "react-router-dom"
 let CategoryContainer = ({ category }) => {
   return (
-    <Category info={category.id <= 3 ? 'three' : 'two'} >
+    <Category className={category.id <= 3 ? 'three' : 'two'} >
       <BackgroundImage src={category.imageUrl} />
       <Link to={category.route} >
         <Info>

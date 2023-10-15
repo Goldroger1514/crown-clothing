@@ -68,4 +68,3 @@ export let CartProvider = ({ children }) => {
   let value = { cartItems, incDecQuantity, remove, setCartItems, total, addItem, cartOpen, setCartOpen, itemsCount }
   return <CartContext.Provider value={value} >{children}</CartContext.Provider>
 }
-//starting redux

@@ -12,8 +12,8 @@ export let Category = styled.div`
   position:relative;
   overflow:hidden;
   ${(props) => {
-    let { info } = props
-    if (info == 'three')
+    let { className } = props
+    if (className == 'three')
       return mixinThree
     else
       return mixinTwo

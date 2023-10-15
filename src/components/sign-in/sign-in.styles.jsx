@@ -21,8 +21,8 @@ export let Label = styled.label`
     color: ${subColor};
     pointer-events:none;
     ${(props) => {
-    let { shrink } = props
-    return shrink && shrinkLabelMixin
+    let { className } = props
+    return className && shrinkLabelMixin
   }}
 `
 export let Input = styled.input`

@@ -90,10 +90,11 @@ export let getCategoriesAndDocuments = async () => {
   let collectionRef = collection(db, 'products')
   let q = query(collectionRef)
   let querySnapShot = getDocs(q)
-  let categoryMap = (await querySnapShot).docs.reduce((acc, docSnapShot) => {
-    let { title, items } = docSnapShot.data()
-    acc[title.toLowerCase()] = items
-    return acc
-  }, {})
+  // let categoryMap = (await querySnapShot).docs.reduce((acc, docSnapShot) => {
+  //   let { title, items } = docSnapShot.data()
+  //   acc[title.toLowerCase()] = items
+  //   return acc
+  // }, {})
+  let categoryMap = (await querySnapShot).docs.map(docSnapshot => docSnapshot.data())
   return categoryMap
 }

@@ -3,7 +3,7 @@ let FormInput = ({ label, ...info }) => {
   return (
     <>
       <Input {...info} />
-      <Label shrink={info.value.length} htmlFor="">{label}</Label>
+      <Label className={info.value.length} htmlFor="">{label}</Label>
     </>
   )
 }

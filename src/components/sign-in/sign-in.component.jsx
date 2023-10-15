@@ -8,12 +8,20 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/user-context.component'
 import { useContext } from 'react'
 import { signInWithGooglePopup, signInUser, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
+import { setCurrentUser } from '../../store/user/user.action'
+import { useDispatch } from 'react-redux'
 let defaultFields = {
   email: '',
   password: ''
 }
 let SignIn = () => {
-  let { currentUser, setCurrentUser } = useContext(UserContext)
+  // let { currentUser, setCurrentUser } = useContext(UserContext)
+  let dispatch = useDispatch()
+  /**
+   * This dispatch works exactly the same way as our UserContext dispatch
+   * The difference is it dispatch actions to the root reducer , which in turn passes the action to every single reducer function
+   * 
+   */
   let navigate = useNavigate()
   let X = Logo
   let [fields, setFields] = useState(defaultFields)
@@ -28,7 +36,7 @@ let SignIn = () => {
       if (userAuth.uid) {
         let userDocRef = await createUserDocumentFromAuth(userAuth)
         setFields(defaultFields)
-
+        dispatch(setCurrentUser(userAuth))
       }
     } catch (error) {
 
@@ -37,7 +45,7 @@ let SignIn = () => {
   let signIn = async () => {
     try {
       let response = await signInUser(email, password)
-      setCurrentUser(response.user)
+      dispatch(setCurrentUser(response.user))
       setFields(defaultFields)
       navigate('/home')
     } catch (error) {

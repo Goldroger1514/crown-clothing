@@ -2,8 +2,7 @@ import { CategoriesContext } from "../../context/categories.context"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import CategoryPreview from "../category-preview/category-preview.component"
-let CategoriesPreview = () => {
-  let { categoriesMap } = useContext(CategoriesContext)
+let CategoriesPreview = ({ categoriesMap }) => {
   return (
     <>
       {
