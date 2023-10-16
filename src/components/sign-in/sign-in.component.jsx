@@ -8,12 +8,17 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/user-context.component'
 import { useContext } from 'react'
 import { signInWithGooglePopup, signInUser, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
+import { selectUser } from "../../redux/user/user.selector"
+import { useSelector, useDispatch } from "react-redux"
+import { userActionCreator } from "../../redux/user/user.action"
 let defaultFields = {
   email: '',
   password: ''
 }
 let SignIn = () => {
-  let { currentUser, setCurrentUser } = useContext(UserContext)
+  // let { currentUser, setCurrentUser } = useContext(UserContext)
+  let currentUser = useSelector(selectUser)
+  let dispatch = useDispatch()
   let navigate = useNavigate()
   let X = Logo
   let [fields, setFields] = useState(defaultFields)
@@ -21,6 +26,10 @@ let SignIn = () => {
   let onInputChange = (e) => {
     setFields({ ...fields, [e.target.name]: e.target.value })
   }
+  let logAndDispatch = (action) => {
+    console.log('Redux store updated'); // Add this line
+    dispatch(action);
+  };
   let signInGoogle = async () => {
     try {
       let response = await signInWithGooglePopup()
@@ -28,7 +37,6 @@ let SignIn = () => {
       if (userAuth.uid) {
         let userDocRef = await createUserDocumentFromAuth(userAuth)
         setFields(defaultFields)
-
       }
     } catch (error) {
 
@@ -37,7 +45,8 @@ let SignIn = () => {
   let signIn = async () => {
     try {
       let response = await signInUser(email, password)
-      setCurrentUser(response.user)
+      // setCurrentUser(response.user)
+      logAndDispatch(userActionCreator(response.user))
       setFields(defaultFields)
       navigate('/home')
     } catch (error) {

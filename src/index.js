@@ -7,16 +7,20 @@ import { HashRouter } from 'react-router-dom';
 import { UserProvider } from './context/user-context.component';
 import { CategoriesProvider } from './context/categories.context';
 import { CartProvider } from './context/cart-context';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename='/crown-clothing' >
-    <UserProvider>
-      <CartProvider>
-        <CategoriesProvider>
-          <App />
-        </CategoriesProvider>
-      </CartProvider>
-    </UserProvider>
+    <Provider store={store} >
+      <UserProvider>
+        <CartProvider>
+          <CategoriesProvider>
+            <App />
+          </CategoriesProvider>
+        </CartProvider>
+      </UserProvider>
+    </Provider>
   </BrowserRouter>
 );
 reportWebVitals();

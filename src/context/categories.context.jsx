@@ -10,8 +10,8 @@ export let CategoriesProvider = ({ children }) => {
   useEffect(() => {
     // addCollectionDocuments('products', SHOP_DATA)
     let handler = async () => {
-      let categoryMap = await getCategoriesAndDocuments()
-      setCategoriesMap(categoryMap)
+      // let categoryMap = await getCategoriesAndDocuments()
+      // setCategoriesMap(categoryMap)
     }
     handler()
   }, [])

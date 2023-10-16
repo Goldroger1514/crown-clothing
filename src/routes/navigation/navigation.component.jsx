@@ -8,12 +8,18 @@ import { signOutUser } from "../../utils/firebase/firebase.utils"
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component"
 import CartIcon from "../../components/cart-icon/cart-icon.component"
 import './navigation.styles.scss'
+import { selectUser } from "../../redux/user/user.selector"
+import { useSelector, useDispatch } from "react-redux"
+import { userActionCreator } from "../../redux/user/user.action"
 let Navigation = () => {
-  let { currentUser, setCurrentUser } = useContext(UserContext)
+  // let { currentUser, setCurrentUser } = useContext(UserContext)
+  let currentUser = useSelector(selectUser)
+  let dispatch = useDispatch()
   let { cartOpen } = useContext(CartContext)
   let handleSignOut = async () => {
     await signOutUser()
-    setCurrentUser(null)
+    // setCurrentUser(null)
+    dispatch(userActionCreator(null))
   }
   return (
     <>
@@ -26,7 +32,7 @@ let Navigation = () => {
           </div>
           <nav>
             <Link to='shop' >Shop</Link>
-            <Link to='/Authentication' onClick={signOutUser} >Sign Out</Link>
+            <Link to='/Authentication' onClick={handleSignOut} >Sign Out</Link>
             <div className="icon-container">
               <CartIcon />
             </div>

@@ -1,0 +1,3 @@
+export let USER_ACTIONS = {
+  SET_CURRENT_USER: 'SET_CURRENT:USER'
+}

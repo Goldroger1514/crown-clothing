@@ -8,11 +8,17 @@ import Home from "./routes/home/home.component";
 import Shop from "./routes/shop/shop.component";
 import { CategoriesProvider } from "./context/categories.context";
 import Checkout from "./routes/checkout/checkout.component";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userActionCreator } from "./redux/user/user.action";
 let LazyNavigation = React.lazy(() => {
   return import("./routes/navigation/navigation.component");
 })
 let App = () => {
+  let dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(userActionCreator(null))
+  })
   return (
     <>
       <Routes>
