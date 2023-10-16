@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { CartContext } from "../../context/cart-context"
 import { ItemContainer, ItemImage, ItemQuantity } from "./checkout-item.styles"
+import { removeItemToCart } from "../../redux/cart/cart.action"
 let CheckoutItem = ({ product }) => {
   let { remove, incDecQuantity } = useContext(CartContext)
   let handleRemove = () => remove(product)

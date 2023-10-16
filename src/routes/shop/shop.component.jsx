@@ -12,7 +12,7 @@ let Shop = () => {
     // addCollectionDocuments('products', SHOP_DATA)
     let handler = async () => {
       let categoryMap = await getCategoriesAndDocuments()
-      // setCategoriesMap(categoryMap)
+      // // setCategoriesMap(categoryMap)
       dispatch(categoryActionCreator(categoryMap))
     }
     handler()

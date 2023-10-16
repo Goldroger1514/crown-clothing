@@ -3,10 +3,16 @@ import { ProductImg, ProductCart, ProductInfo, ProductBtnContainer } from "./pro
 import Button from '../button/button.component'
 import { CartContext } from "../../context/cart-context"
 import { useContext } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addItemToCart } from "../../redux/cart/cart.action"
+import { selectCartItems } from "../../redux/cart/cart.selector"
 let Product = ({ category }) => {
-  let { addItem } = useContext(CartContext)
+  // let { addItem, cartItems } = useContext(CartContext)
+  let cartItems = useSelector(selectCartItems)
+  let dispatch = useDispatch()
   let clickHandler = () => {
-    addItem(category)
+    // addItem(category)
+    dispatch(addItemToCart(cartItems, category))
   }
   return (
     <ProductCart>

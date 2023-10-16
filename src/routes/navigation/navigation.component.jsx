@@ -11,11 +11,13 @@ import './navigation.styles.scss'
 import { selectUser } from "../../redux/user/user.selector"
 import { useSelector, useDispatch } from "react-redux"
 import { userActionCreator } from "../../redux/user/user.action"
+import { selectIsCartOpen } from "../../redux/cart/cart.selector"
 let Navigation = () => {
   // let { currentUser, setCurrentUser } = useContext(UserContext)
   let currentUser = useSelector(selectUser)
   let dispatch = useDispatch()
-  let { cartOpen } = useContext(CartContext)
+  // let { cartOpen } = useContext(CartContext)
+  let cartOpen = useSelector(selectIsCartOpen)
   let handleSignOut = async () => {
     await signOutUser()
     // setCurrentUser(null)
